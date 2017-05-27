@@ -1,0 +1,3 @@
+<div #editable class="editor col-md-6" contenteditable="true"
+    [bf-editable]="text" (update)="onUpdate($event, editable)" (keyup)="onKeyup($event)"></div>
+<div class="editor col-md-6" [innerHTML]="text"></div>

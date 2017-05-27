@@ -1,0 +1,16 @@
+.editor:focus {
+    outline: 0 solid transparent;
+}
+
+.editor {
+    padding-left: 50px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    min-height: 200px;
+    width: 100%;
+    border: rgba(125,138,168,0.31) 1px solid;
+}
+
+.placeholder {
+    color: grey;
+}
