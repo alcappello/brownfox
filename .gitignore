@@ -57,3 +57,6 @@ jspm_packages/
 # Webstorm project folder
 .idea/
 
+# Compiled JS
+src/app/*.js
+src/app/*.js.map
