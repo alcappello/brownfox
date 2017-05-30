@@ -39,9 +39,6 @@ build/Release
 node_modules/
 jspm_packages/
 
-# Typescript v1 declaration files
-typings/
-
 # Optional npm cache directory
 .npm
 
@@ -51,9 +48,6 @@ typings/
 # Optional REPL history
 .node_repl_history
 
-# Output of 'npm pack'
-*.tgz
-
 # Yarn Integrity file
 .yarn-integrity
 
@@ -62,14 +56,4 @@ typings/
 
 # Webstorm project folder
 .idea/
-
-# Data journal from MongoDB
-data/journal/
-data/diagnostic.data/
-
-# Compiled JS
-dist/server.js
-dist/models
-dist/operations
-dist/routes
 

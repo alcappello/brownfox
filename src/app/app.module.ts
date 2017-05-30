@@ -3,7 +3,7 @@ import {BrowserModule} from '@angular/platform-browser';
 
 import {AppComponent}  from './app.component';
 import {EditorComponent} from './editor.component';
-import {EditableDirective} from './editable.directive';
+import {MarkdownService} from './markdown.service';
 
 @NgModule({
     imports: [
@@ -11,8 +11,10 @@ import {EditableDirective} from './editable.directive';
     ],
     declarations: [
         AppComponent,
-        EditorComponent,
-        EditableDirective
+        EditorComponent
+    ],
+    providers: [
+        MarkdownService
     ],
     bootstrap: [
         AppComponent
