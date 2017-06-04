@@ -4,6 +4,7 @@ import {BrowserModule} from '@angular/platform-browser';
 import {AppComponent}  from './app.component';
 import {EditorComponent} from './editor.component';
 import {MarkdownService} from './markdown.service';
+import {CaretService} from './caret.service';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import {MarkdownService} from './markdown.service';
         EditorComponent
     ],
     providers: [
-        MarkdownService
+        MarkdownService,
+        CaretService
     ],
     bootstrap: [
         AppComponent
