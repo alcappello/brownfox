@@ -5,6 +5,7 @@ import {AppComponent}  from './app.component';
 import {EditorComponent} from './editor.component';
 import {MarkdownService} from './markdown.service';
 import {CaretService} from './caret.service';
+import {UndoService} from './undo.service';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import {CaretService} from './caret.service';
     ],
     providers: [
         MarkdownService,
-        CaretService
+        CaretService,
+        UndoService
     ],
     bootstrap: [
         AppComponent

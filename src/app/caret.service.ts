@@ -1,9 +1,42 @@
 import {Injectable} from '@angular/core';
-import {nodeValue} from '@angular/core/src/view';
 
 @Injectable()
 export class CaretService {
     private caretID: string = 'allyourcarets';
+
+    public static insertMacroTag(tagName: string, idPattern?: string, attributes?: boolean): void {
+
+        let sel = window.getSelection(),
+            range: Range,
+            node: HTMLElement;
+
+        for (let i = 0; i < sel.rangeCount; ++i) {
+
+            range = sel.getRangeAt(i);
+            node = document.createElement(tagName);
+
+            if (attributes) {
+                node.id = idPattern + i;
+            }
+
+            // when a selection is not collapsed, then a single caret-token is not enough
+            if (!range.collapsed) {
+                // create another range, just to inject another caret-token
+                let twinRange = document.createRange();
+                twinRange.setStart(range.endContainer, range.endOffset);
+                let twinNode = document.createElement(tagName);
+
+                if (attributes) {
+                    twinNode.id = idPattern + i + 'T'; // same ID, with T at the end
+                    node.setAttribute('selection', 'true');
+                }
+
+                twinRange.insertNode(twinNode);
+            }
+
+            range.insertNode(node);
+        }
+    }
 
     /**
      * Set the caret to a given position inside a given element
@@ -44,33 +77,7 @@ export class CaretService {
      */
     public saveSelection(): void {
 
-        let sel = window.getSelection(),
-            range: Range,
-            node: HTMLElement;
-
-        for (let i = 0; i < sel.rangeCount; ++i) {
-
-            range = sel.getRangeAt(i);
-            node = document.createElement('caret-token');
-
-            node.id = this.caretID + i;
-
-            // when a selection is not collapsed, then a single caret-token is not enough
-            if (!range.collapsed) {
-                node.setAttribute('selection', 'true');
-                // create another range, just to inject another caret-token
-                let twinRange = document.createRange();
-                twinRange.setStart(range.endContainer, range.endOffset);
-
-                let twinNode = document.createElement('caret-token');
-                twinNode.id = this.caretID + i + 'T'; // same ID, with T at the end
-                twinRange.insertNode(twinNode);
-
-                twinRange.insertNode(twinNode);
-            }
-
-            range.insertNode(node);
-        }
+        CaretService.insertMacroTag('caret-token', this.caretID, true);
     }
 
     public restoreSelection(): void {

@@ -6,7 +6,9 @@
     padding-left: 50px;
     padding-top: 20px;
     padding-bottom: 20px;
-    min-height: 200px;
+    height: 400px;
+    max-height: 400px;
+    overflow: auto;
     width: 100%;
     border: rgba(125,138,168,0.31) 1px solid;
 }

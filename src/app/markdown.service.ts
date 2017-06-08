@@ -1,4 +1,6 @@
 import {Injectable} from '@angular/core';
+import {UndoService} from './undo.service';
+import {CaretService} from './caret.service';
 
 
 interface MarkdownRule {
@@ -13,14 +15,53 @@ export class MarkdownService {
 
     private purge(text: string): string {
 
-        return text.replace(/<[\/]?(span|strong)>/g, '');
+        return text.replace(/<[\/]?(span|strong|bold-macro)>/g, '');
     }
+
+    constructor(private undoService: UndoService) {}
 
     public transform(text: string): string {
 
         text = this.purge(text);
-        text = text.replace(/[*](\S[^(*|<s)]*\S|\S)[*]/g, '<span>*</span><strong>$1</strong><span>*</span>');
+        text = text.replace(/[*](\S[^(*)]*\S|\S)[*]/g, '<span>*</span><strong>$1</strong><span>*</span>');
         return text;
+    }
+
+
+    public applyMacro(elem: HTMLDivElement, event: KeyboardEvent): string | null {
+
+        // If it's a Mac, use the command key as function key, otherwise use ctrl
+        let meta = (navigator.platform.toLowerCase() === 'macintel') ? event.metaKey : event.ctrlKey;
+
+        // BOLD MACRO (CMD + B)
+        if (meta && !event.shiftKey && event.key === 'b') {
+            CaretService.insertMacroTag('bold-macro');
+            let boldTags = document.getElementsByTagName('bold-macro');
+
+            for (let i = 0; i < boldTags.length; i++) {
+                boldTags[i].innerHTML = '*';
+            }
+
+
+            return elem.innerHTML;
+        }
+
+        // UNDO (CMD + Z)
+        if (meta && !event.shiftKey && event.key === 'z') {
+            let newText = this.undoService.undo();
+            if (newText) {
+                return newText;
+            }
+
+        // REDO (CMD + Shift + Z)
+        } else if (meta && event.shiftKey && event.key === 'z') {
+            let newText = this.undoService.redo();
+            if (newText) {
+                return newText;
+            }
+        }
+
+        return null;
     }
 
 
