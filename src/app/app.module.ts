@@ -1,11 +1,11 @@
 import {NgModule}      from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 
-import {AppComponent}  from './app.component';
-import {EditorComponent} from './editor.component';
-import {MarkdownService} from './markdown.service';
-import {CaretService} from './caret.service';
-import {UndoService} from './undo.service';
+import {AppComponent}  from './components/app.c';
+import {EditorComponent} from './components/editor.c';
+import {MarkdownService} from './services/markdown.s';
+import {CaretService} from './services/caret.s';
+import {UndoService} from './services/undo.s';
 
 @NgModule({
     imports: [

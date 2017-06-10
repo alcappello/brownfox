@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {UndoService} from './undo.service';
-import {CaretService} from './caret.service';
+import {UndoService} from './undo.s';
+import {CaretService} from './caret.s';
 
 
 interface MarkdownRule {
@@ -18,7 +18,8 @@ export class MarkdownService {
         return text.replace(/<[\/]?(span|strong|bold-macro)>/g, '');
     }
 
-    constructor(private undoService: UndoService) {}
+    constructor(private undoService: UndoService,
+                private caretService: CaretService) {}
 
     public transform(text: string): string {
 
@@ -35,7 +36,9 @@ export class MarkdownService {
 
         // BOLD MACRO (CMD + B)
         if (meta && !event.shiftKey && event.key === 'b') {
-            CaretService.insertMacroTag('bold-macro');
+            this.caretService.saveSelection();
+
+            CaretService.insertMacroTag('bold-macro', '', false, true);
             let boldTags = document.getElementsByTagName('bold-macro');
 
             for (let i = 0; i < boldTags.length; i++) {

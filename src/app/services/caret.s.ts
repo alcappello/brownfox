@@ -4,7 +4,7 @@ import {Injectable} from '@angular/core';
 export class CaretService {
     private caretID: string = 'allyourcarets';
 
-    public static insertMacroTag(tagName: string, idPattern?: string, attributes?: boolean): void {
+    public static insertMacroTag(tagName: string, idPattern?: string, attributes?: boolean, double?: boolean): void {
 
         let sel = window.getSelection(),
             range: Range,
@@ -20,7 +20,7 @@ export class CaretService {
             }
 
             // when a selection is not collapsed, then a single caret-token is not enough
-            if (!range.collapsed) {
+            if (!range.collapsed || double) {
                 // create another range, just to inject another caret-token
                 let twinRange = document.createRange();
                 twinRange.setStart(range.endContainer, range.endOffset);

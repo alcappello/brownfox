@@ -1,3 +1,7 @@
+:host /deep/ .editor span {
+    color: #a0a0a0;
+}
+
 .editor:focus {
     outline: 0 solid transparent;
 }
@@ -11,8 +15,4 @@
     overflow: auto;
     width: 100%;
     border: rgba(125,138,168,0.31) 1px solid;
-}
-
-.placeholder {
-    color: grey;
 }

@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
 
-import {MarkdownService} from './markdown.service';
-import {CaretService} from './caret.service';
-import {UndoService} from './undo.service';
+import {MarkdownService} from '../services/markdown.s';
+import {CaretService} from '../services/caret.s';
+import {UndoService} from '../services/undo.s';
 
 
 @Component({
     selector: 'bf-editor',
-    templateUrl: './editor.component.html',
-    styleUrls: ['./editor.component.css']
+    templateUrl: './editor.c.html',
+    styleUrls: ['./editor.c.css']
 })
 
 export class EditorComponent {
@@ -28,9 +28,10 @@ export class EditorComponent {
      */
     onKeydown(elem: HTMLDivElement, event: KeyboardEvent) {
 
+        let oldText = elem.innerHTML;
         let newText = this.markdownService.applyMacro(elem, event);
 
-        if (newText !== null && newText !== this.text) {
+        if (newText !== null && newText !== oldText) {
             elem.innerHTML = newText;
             this.caretService.restoreSelection();
             event.preventDefault();
