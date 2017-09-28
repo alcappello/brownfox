@@ -24,7 +24,7 @@ export class MarkdownService {
     public transform(text: string): string {
 
         text = this.purge(text);
-        text = text.replace(/[*](\S[^(*)]*\S|\S)[*]/g, '<span>*</span><strong>$1</strong><span>*</span>');
+        text = text.replace(/[*]{2}(\S[^(*)]*\S|\S)[*]{2}/g, '<span>*</span><strong>$1</strong><span>*</span>');
         return text;
     }
 
